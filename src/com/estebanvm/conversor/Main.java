@@ -1,6 +1,10 @@
+package com.estebanvm.conversor;
+
+import com.estebanvm.conversor.configs.Config;
+import com.estebanvm.conversor.constants.Currencies;
+import com.estebanvm.conversor.models.Conversion;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import io.github.cdimascio.dotenv.Dotenv;
 
 import java.io.FileWriter;
 import java.net.URI;
@@ -11,14 +15,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Conversor {
+public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         List<Conversion> conversions = new ArrayList<>();
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
-        Dotenv dotenv = Dotenv.load();
-        var apiKey = dotenv.get("API_KEY");
+        Config config = new Config();
+        var apiKey = config.get("API_KEY");
 
         while (true) {
             try {

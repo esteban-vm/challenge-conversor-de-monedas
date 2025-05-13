@@ -1,3 +1,5 @@
+package com.estebanvm.conversor.models;
+
 public record Conversion(String result,
                          String documentation,
                          String terms_of_use,

@@ -1,3 +1,5 @@
+package com.estebanvm.conversor.constants;
+
 import java.util.Currency;
 import java.util.Locale;
 
