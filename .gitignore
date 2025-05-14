@@ -28,5 +28,5 @@ bin/
 ### Mac OS ###
 .DS_Store
 
-conversions.json
+historial.txt
 /src/config.properties
