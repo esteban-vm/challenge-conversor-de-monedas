@@ -1,5 +1,8 @@
 package com.estebanvm.conversor.models;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public record Conversion(String result,
                          String documentation,
                          String terms_of_use,
@@ -11,4 +14,12 @@ public record Conversion(String result,
                          String target_code,
                          double conversion_rate,
                          double conversion_result) {
+
+    public String getHistoryEntry(double amount) {
+        LocalDateTime dateTime = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        String formattedDateTime = dateTime.format(formatter);
+
+        return String.format("(%s) %.2f [%s] => %.2f [%s]", formattedDateTime, amount, base_code, conversion_result, target_code);
+    }
 }
