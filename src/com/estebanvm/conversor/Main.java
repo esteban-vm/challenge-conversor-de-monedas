@@ -19,7 +19,7 @@ public class Main {
     public static void main(String[] args) {
         Gson gson = new GsonBuilder().create();
         Scanner scanner = new Scanner(System.in);
-        List<String> historyEntries = new ArrayList<>();
+        List<String> history = new ArrayList<>();
 
         Config config = new Config();
         var apiKey = config.get("API_KEY");
@@ -115,14 +115,18 @@ public class Main {
                     // Salir
                     case 11: {
                         scanner.close();
-                        FileWriter writer = new FileWriter("historial.txt", true);
 
-                        for (String historyEntry : historyEntries) {
-                            writer.write(historyEntry + "\n");
+                        if (!history.isEmpty()) {
+                            FileWriter writer = new FileWriter("historial.txt", true);
+
+                            for (String entry : history) {
+                                writer.write(entry);
+                            }
+
+                            writer.close();
+                            System.out.println("Historial de conversiones guardado.");
                         }
 
-                        writer.close();
-                        System.out.println("Conversiones de monedas guardadas.");
                         System.out.println("¡Hasta la próxima!");
                         return;
                     }
@@ -159,8 +163,8 @@ public class Main {
                 String json = response.body();
                 Conversion conversion = gson.fromJson(json, Conversion.class);
 
-                String historyEntry = conversion.getHistoryEntry(amount);
-                historyEntries.add(historyEntry);
+                String entry = conversion.makeHistoryEntry(amount);
+                history.add(entry);
 
                 String result = "El valor " + amount
                         + " " + baseCode + " "
