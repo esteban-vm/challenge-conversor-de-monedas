@@ -17,9 +17,9 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+        Gson gson = new GsonBuilder().create();
         Scanner scanner = new Scanner(System.in);
-        List<Conversion> conversions = new ArrayList<>();
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        List<String> historyEntries = new ArrayList<>();
 
         Config config = new Config();
         var apiKey = config.get("API_KEY");
@@ -115,14 +115,14 @@ public class Main {
                     // Salir
                     case 11: {
                         scanner.close();
+                        FileWriter writer = new FileWriter("historial.txt", true);
 
-                        if (!conversions.isEmpty()) {
-                            FileWriter writer = new FileWriter("conversions.json");
-                            writer.write(gson.toJson(conversions));
-                            writer.close();
-                            System.out.println("Conversiones de monedas guardadas.");
+                        for (String historyEntry : historyEntries) {
+                            writer.write(historyEntry + "\n");
                         }
 
+                        writer.close();
+                        System.out.println("Conversiones de monedas guardadas.");
                         System.out.println("¡Hasta la próxima!");
                         return;
                     }
@@ -158,7 +158,9 @@ public class Main {
 
                 String json = response.body();
                 Conversion conversion = gson.fromJson(json, Conversion.class);
-                conversions.add(conversion);
+
+                String historyEntry = conversion.getHistoryEntry(amount);
+                historyEntries.add(historyEntry);
 
                 String result = "El valor " + amount
                         + " " + baseCode + " "
