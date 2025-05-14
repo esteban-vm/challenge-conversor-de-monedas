@@ -15,11 +15,11 @@ public record Conversion(String result,
                          double conversion_rate,
                          double conversion_result) {
 
-    public String getHistoryEntry(double amount) {
+    public String makeHistoryEntry(double amount) {
         LocalDateTime dateTime = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
         String formattedDateTime = dateTime.format(formatter);
 
-        return String.format("(%s) %.2f [%s] => %.2f [%s]", formattedDateTime, amount, base_code, conversion_result, target_code);
+        return String.format("(%s) %.2f [%s] => %.2f [%s]\n", formattedDateTime, amount, base_code, conversion_result, target_code);
     }
 }
