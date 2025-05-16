@@ -113,7 +113,7 @@ public class Main {
                         break;
                     }
                     // Salir
-                    case 11: {
+                    case 0: {
                         scanner.close();
 
                         if (!history.isEmpty()) {
@@ -197,7 +197,7 @@ public class Main {
         System.out.println("8) De " + Currencies.COLOMBIAN_PESO_NAME + " a " + Currencies.US_DOLLAR_NAME);
         System.out.println("9) De " + Currencies.US_DOLLAR_NAME + " a " + Currencies.GUARANI_NAME);
         System.out.println("10) De " + Currencies.GUARANI_NAME + " a " + Currencies.US_DOLLAR_NAME);
-        System.out.println("11) Salir");
+        System.out.println("0) Salir");
         System.out.println("**********************************\n");
     }
 }
